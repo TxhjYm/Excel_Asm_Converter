@@ -1,0 +1,49 @@
+BIU0:wait 0																				
+BIU0:load(T0)(A++) ->SHU0.T0&MC.w2[I++,A++]	BIU2:wait 1																			
+	BIU2:load(T0) -> SHU1.T2																		Mfetch:test	
+																				
+																				
+																				
+																				
+																				
+																				
+																				
+																				
+				R3:wait 11																
+		SHU0:wait 12	SHU1:wait 12	R3:MC[I++,A++] -> SHU2.T1																
+		SHU0:T0>>24(U)(I32) -> SHU0.T1	SHU1:T2&T4 -> SHU1.T0																	
+		SHU0:T1+T4(I32) -> SHU2.T2	SHU1:T0|T5 -> SHU3.T1&FMA0.T4		SHU2:wait 14															
+					SHU2:T1&T3 -> FMA0.T0	SHU3:wait 15	FMA0: wait 15													
+					SHU2:T2<<23(I32) -> FMA3.T1	SHU3:indgen(T1, T4)(table0)(FP32) -> BIU.T4&FMA1.T0	FALU0:T4<<0(I8) -> FMA1.T1													
+							FALU0:CompSel2(T0,T1,T2,T3)(I32) -> FMA3.T2													
+								FMA3:wait 18	FMA1:wait 18											
+								FMA3:0+T1*T2(shiftmode0)(fp32) -> MC.w0[I++,A++]	FMA1:T1-T2*T0(shiftmode0)(fp32) -> MC.w4[I++,A++]	BIU1:wait 19										
+										BIU1:disload(T2,T4)(A++)(D) -> FMA2.T1 & FMA2.T2										
+										BIU1:disload(T3,T4)(A++) -> MC.w3[I++,A++]										
+																				
+																				
+																				
+																				
+																				
+																				
+											R6:wait 28									
+											R6:MC[I++,A++] -> FMA2.T4									
+																				
+												Tensor2:wait 31								
+												FMAC2:T2+T4*T1(shiftmode0)(fp32) -> FMA3.T0								
+													R7:wait 33	R2:wait 33						
+													R7:MC[I++,A++] -> FMA3.T4	R2:M[I++,A++] -> FMA3.T3						
+																				
+															Tensor3:wait 36					
+															FMAC3:T3+T4*T0(shiftmode0)(fp32) -> FMAC1.T5					
+																R1:wait 38				
+																R1:MC[I++,A++] -> FMAC1.T6				
+																				
+																	FAMC1:wait 41			
+																	FAMC1:0+T5*T6(shiftmode0)(fp32) -> BIU.T5			
+																				
+																				
+																				
+																				
+																		BIU3:wait 47		
+																		BIU3:store(T5, T1)(A++)(mask)		
